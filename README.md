@@ -109,17 +109,18 @@ Connecting to the server is required before you can use any other action in a me
 You should also use this token to register a handler on `<client-prefix><token>`. The server sends messages to this client to this address.
 
 Example:
-   {
-       "action" : "connect",
-       "nickname" : "ThePlayfulGorilla"
-   }
+
+    {
+        "action" : "connect",
+        "nickname" : "ThePlayfulGorilla"
+    }
 
 Return value:
 
-   {
-       "success": true,
-       "token": "48468827-e20c-4ebd-b1c5-f7c36dc4bc95"
-   }
+    {
+        "success": true,
+        "token": "48468827-e20c-4ebd-b1c5-f7c36dc4bc95"
+    }
 
 ### join (Join a chat-room)
 
@@ -127,18 +128,18 @@ Joins a chat-room. The client will receive incoming text, join and part messages
 
 Example:
 
-   {
-       "action" : "join",
-       "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
-       "room" : "jungle"
-   }
+    {
+        "action" : "join",
+        "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
+        "room" : "jungle"
+    }
 
 Return value:
 
-   {
-       "success" : true,
-       "users" : ["ThePlayfulRobot", "TheRedSnake", "GreenFlash"]
-   }
+    {
+        "success" : true,
+        "users" : ["ThePlayfulRobot", "TheRedSnake", "GreenFlash"]
+    }
 
 ### part (Leave a chat-room)
 
@@ -146,17 +147,17 @@ Leaves a chat-room. The client will not receive any more join, part or text mess
 
 Example:
 
-   {
-       "action" : "part",
-       "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
-       "room" : "jungle"
-   }
+    {
+        "action" : "part",
+        "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
+        "room" : "jungle"
+    }
 
 Return value:
 
-   {
-       "success" : true
-   }
+    {
+        "success" : true
+    }
 
 ### send (Send a message to a chat-room)
 
@@ -164,18 +165,18 @@ Sends a message to all clients inside a chat-room.
 
 Example to send a _Howdy!_ to the chat-room _jungle_:
 
-   {
-       "action" : "send",
-       "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
-       "room" : "jungle",
-       "message" : "Howdy!"
-   }
+    {
+        "action" : "send",
+        "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
+        "room" : "jungle",
+        "message" : "Howdy!"
+    }
 
 Return value:
 
-   {
-       "success" : true
-   }
+    {
+        "success" : true
+    }
 
 ### send (Send a message to another user directly)
 
@@ -183,18 +184,18 @@ Sends a message to another client directly. The other client will receive the me
 
 In this example, a message is sent to _ThePlayfulGorilla_:
 
-   {
-       "action" : "send",
-       "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
-       "nickname" : "ThePlayfulGorilla",
-       "message" : "Hi there, Mr. Gorilla!"
-   }
+    {
+        "action" : "send",
+        "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95",
+        "nickname" : "ThePlayfulGorilla",
+        "message" : "Hi there, Mr. Gorilla!"
+    }
 
 Return value:
 
-   {
-       "success" : true
-   }
+    {
+        "success" : true
+    }
 
 ### disconnect (Disconnects the client from the server)
 
@@ -202,16 +203,16 @@ Disconnects the client from the server. All rooms will receive `part` messages i
 
 Example:
 
-   {
-       "action" : "disconnect",
-       "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95"
-   }
+    {
+        "action" : "disconnect",
+        "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95"
+    }
 
 Return value:
 
-   {
-       "success" : true
-   }
+    {
+        "success" : true
+    }
 
 ### ping (Sends a ping to the server to stay connected)
 
@@ -219,17 +220,17 @@ Sends a ping request to the server. The server should reply with a `pong` set to
 
 Example:
 
-   {
-       "action" : "ping",
-       "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95"
-   }
+    {
+        "action" : "ping",
+        "token" : "48468827-e20c-4ebd-b1c5-f7c36dc4bc95"
+    }
 
 Return value:
 
-   {
-       "success" : true,
-       "pong" : 120000
-   }
+    {
+        "success" : true,
+        "pong" : 120000
+    }
 
 ## Incoming Messages
 
@@ -272,30 +273,30 @@ Here is a small Java example to do this:
 
 If there is an incoming message, the server will send it to the client. If the message was sent to a specific room and the client may be only one of many addressed participants, the message will look like this example:
 
-   {
-       "action" : "message",
-       "nickname" : "ThePlayfulGorilla",
-       "room" : "jungle",
-       "message" : "Hrrm!"
-   }
+    {
+        "action" : "message",
+        "nickname" : "ThePlayfulGorilla",
+        "room" : "jungle",
+        "message" : "Hrrm!"
+    }
 
 Here, the client with nickname _ThePlayfulGorilla_ sent the text _Hrrm!_ to the chat-room _jungle_. The chat-room is optional. That means, if a client decides to write privately to this client, it will be sent without the "room" key/value. So an example for a private message from _ThePlayfulGorilla_ with content _Hi there, my friend!_ looks like:
 
-   {
-       "action" : "message",
-       "nickname" : "ThePlayfulGorilla",
-       "message" : "Hi there, my friend!"
-   }
+    {
+        "action" : "message",
+        "nickname" : "ThePlayfulGorilla",
+        "message" : "Hi there, my friend!"
+    }
 
 ### join (Someone joined a chat-room)
 
 The server will notice all clients connected to a chat-room if another clients joins the room. Here is an example message, if _TheLawfulHuman_ joins the room _jungle_:
 
-   {
-       "action" : "join",
-       "nickname" : "TheLawfulHuman",
-       "room" : "jungle"
-   }
+    {
+        "action" : "join",
+        "nickname" : "TheLawfulHuman",
+        "room" : "jungle"
+    }
 
 Now all clients know that this new client joined the conversation.
 
@@ -303,11 +304,11 @@ Now all clients know that this new client joined the conversation.
 
 This is analog to the join. If someone disconnects from a room, all clients still inside this room will be notified by the server like the following example:
 
-   {
-       "action" : "part",
-       "nickname" : "TheLawfulHuman",
-       "room" : "jungle"
-   }
+    {
+        "action" : "part",
+        "nickname" : "TheLawfulHuman",
+        "room" : "jungle"
+    }
 
 Here _TheLawfulHuman_ obviously did not want to stay inside the room _jungle_ any longer or was disconnected by the server.
 
@@ -332,10 +333,10 @@ Client receives that message and sends a message to _campudus.chat_ with the fol
 
 The server receives this message and responds with its regular response:
 
-   {
-       "success" : true,
-       "pong" : 120000
-   }
+    {
+        "success" : true,
+        "pong" : 120000
+    }
 
 Inside the server module, the timeout will be reset and it will wait the set up `timeout` before sending a ping request again.
 
